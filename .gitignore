@@ -1,0 +1,39 @@
+# Secrets — NEVER commit these
+.env
+*.env
+push_to_github.sh
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Live data — bot generates these at runtime
+data/levels.json
+data/giveaways.json
+data/afk_data.json
+data/invites.json
+data/logging.json
+data/bst.json
+data/database.json
+data/*.db
+data/*.sqlite3
+config.json
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Poetry
+poetry.lock
+pyproject.toml
+
+# Logs
+*.log
