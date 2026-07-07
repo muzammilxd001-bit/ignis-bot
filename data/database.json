@@ -1,0 +1,39 @@
+{
+    "guilds": {
+        "1029263838274662412": {
+            "welcome": {
+                "autodel": 0,
+                "channel": [],
+                "color": "",
+                "embed": false,
+                "footer": "",
+                "image": "",
+                "message": "<<user.mention>> Welcome To <<server.name>>",
+                "ping": false,
+                "title": "",
+                "thumbnail": ""
+            },
+            "goodbye": {
+                "autodel": 0,
+                "channel": [],
+                "color": "",
+                "embed": false,
+                "footer": "",
+                "image": "",
+                "message": "<<user.mention>> has left <<server.name>>",
+                "ping": false,
+                "title": "",
+                "thumbnail": ""
+            },
+            "vcrole": {
+                "humans": "",
+                "bots": ""
+            },
+            "nightmode": {
+                "status": false,
+                "time": null,
+                "channel": null
+            }
+        }
+    }
+}

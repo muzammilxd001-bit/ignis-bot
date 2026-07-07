@@ -1,0 +1,21 @@
+{
+    "guilds": {
+        "1029263838274662412": {
+            "boost": {
+                "autodel": 0,
+                "channel": [],
+                "color": "",
+                "embed": false,
+                "footer": "",
+                "image": "",
+                "message": "<<boost.user_mention>> Thank you for boosting <<boost.server_name>>",
+                "ping": false,
+                "title": "",
+                "thumbnail": ""
+            },
+            "boost1": {
+                "role": []
+            }
+        }
+    }
+}

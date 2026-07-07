@@ -1,0 +1,42 @@
+# Discord
+discord.py==2.3.2
+jishaku==2.5.2
+
+# Async / HTTP
+aiohttp==3.9.5
+aiosqlite==0.21.0
+async-timeout==4.0.3
+
+# Database
+motor==3.5.1
+pymongo==4.8.0
+
+# Music (Wavelink 2.x — compatible with discord.py 2.x)
+wavelink==2.6.5
+PyNaCl==1.5.0
+
+# Utilities
+colorama==0.4.6
+python-dotenv==1.0.1
+pillow==10.4.0
+humanize==4.10.0
+python-dateutil==2.9.0.post0
+pytz==2024.1
+requests==2.32.3
+beautifulsoup4==4.12.3
+emoji==2.12.1
+chess==1.10.0
+pyfiglet==0.8.post1
+
+# UI / Pagination
+reactionmenu==3.1.7
+chat_exporter==2.8.2
+
+# Image generation / manipulation
+lxml==5.3.1
+
+# AI (optional — set GROQ_API_KEY or OPENAI_API_KEY)
+openai==1.35.0
+
+# Keep-alive is NOT needed on Railway
+# flask is removed — Railway manages process lifetime
