@@ -31,6 +31,7 @@ pyfiglet==0.8.post1
 # UI / Pagination
 reactionmenu==3.1.7
 chat_exporter==2.8.2
+discord-ext-menus==1.0.0
 
 # Image generation / manipulation
 lxml==5.3.1
