@@ -32,6 +32,7 @@ pyfiglet==0.8.post1
 reactionmenu==3.1.7
 chat_exporter==2.8.2
 discord-ext-menus==1.0.0
+discord-games==1.12.6
 
 # System
 psutil==5.9.8
