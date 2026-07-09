@@ -827,40 +827,53 @@ class Music(commands.Cog):
 
         elif "https://www.youtube.com/" in str(search):
 
-            if vc.queue.is_empty and not vc.is_playing():
+    track1 = await wavelink.YouTubeTrack.search(query=search, return_first=True)
 
-                track1 = await vc.node.get_tracks(query=search, cls=wavelink.Track)
+    if not track1:
+        return await ctx.send(
+            embed=discord.Embed(
+                description=":cross: | No track found for that YouTube link.",
+                color=0x2B2D31,
+            )
+        )
 
-                await vc.play(track1[0])
-                mbed = discord.Embed(
-                    color=0x2B2D31,
-                    description=f"<:search:1263147608935895113> [{track1}](https://discord.gg/nakhre) | {track1.url}",
-                )
-                mbed.add_field(name="Song Url", value=search)
-                # mbed.add_field(name="<a:1045213196207804568> ", value=f"[{track1}](https://discord.gg/nakhre)")
-                mbed.set_author(name="NOW PLAYING", icon_url=ctx.author.display_avatar.url)
-                mbed.set_image(url=track1.thumb)
-                mbed.set_footer(
-                    text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
-                )
-                mbed.timestamp = discord.utils.utcnow()
-                view = discord.ui.View()
-                view = Buttons()
-                view.add_item(Dropdown())
-                await ctx.send(embed=mbed, view=view)
+    if vc.queue.is_empty and not vc.is_playing():
 
-            else:
-                track1 = await vc.node.get_tracks(query=search, cls=wavelink.Track)
-                await vc.queue.put_wait(track1[0])
-                embed = discord.Embed(
-                    description=f"[{track1}](https://discord.gg/hangouts) Added To The Queue | ",
-                    color=0x2B2D31,
-                )
+        await vc.play(track1)
 
-                embed.set_author(name="ADDED TO QUEUE", icon_url=ctx.author.display_avatar.url)
-                embed.set_thumbnail(url=track1.thumb)
-                embed.timestamp = discord.utils.utcnow()
-                await ctx.reply(embed=embed)
+        mbed = discord.Embed(
+            color=0x2B2D31,
+            description=f"<:search:1263147608935895113> [{track1.title}]({track1.uri})",
+        )
+        mbed.add_field(name="Song Url", value=search)
+        mbed.set_author(name="NOW PLAYING", icon_url=ctx.author.display_avatar.url)
+
+        if hasattr(track1, "thumb"):
+            mbed.set_image(url=track1.thumb)
+
+        mbed.set_footer(
+            text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
+        )
+        mbed.timestamp = discord.utils.utcnow()
+        view = Buttons()
+        view.add_item(Dropdown())
+        await ctx.send(embed=mbed, view=view)
+
+    else:
+        await vc.queue.put_wait(track1)
+
+        embed = discord.Embed(
+            description=f"[{track1.title}]({track1.uri}) Added To The Queue | ",
+            color=0x2B2D31,
+        )
+
+        embed.set_author(name="ADDED TO QUEUE", icon_url=ctx.author.display_avatar.url)
+
+        if hasattr(track1, "thumb"):
+            embed.set_thumbnail(url=track1.thumb)
+
+        embed.timestamp = discord.utils.utcnow()
+        await ctx.reply(embed=embed)
 
         else:
 
