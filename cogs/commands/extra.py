@@ -71,10 +71,9 @@ class Utility(commands.Cog):
       )
       embed.set_image(url=ctx.guild.banner)
       embed.set_author(name=ctx.guild.name,
-                       icon_url=ctx.guild.icon.url
-                       if ctx.guild.icon else ctx.guild.default_icon.url)
+                       icon_url=ctx.guild.icon.url if ctx.guild.icon else None)
       embed.set_footer(text=f"Requested By {ctx.author}",
-                       icon_url=ctx.author.avatar.url
+                       icon_url=ctx.author.display_avatar.url
                        if ctx.author.avatar else ctx.author.default_avatar.url)
       await ctx.reply(embed=embed)
 
@@ -108,7 +107,7 @@ class Utility(commands.Cog):
                        if member.avatar else member.default_avatar.url)
       embed.set_image(url=bannerUser.banner)
       embed.set_footer(text=f"Requested By {ctx.author}",
-                       icon_url=ctx.author.avatar.url
+                       icon_url=ctx.author.display_avatar.url
                        if ctx.author.avatar else ctx.author.default_avatar.url)
 
       await ctx.send(embed=embed)
@@ -150,9 +149,9 @@ class Utility(commands.Cog):
                      icon_url=self.bot.user.display_avatar.url)
     await ctx.send(embed=embed, view=view)
     embed.set_footer(text=f"Requested By {ctx.author}",
-                     icon_url=ctx.author.avatar.url
+                     icon_url=ctx.author.display_avatar.url
                      if ctx.author.avatar else ctx.author.default_avatar.url)
-    embed.set_thumbnail(url=self.bot.user.avatar.url)
+    embed.set_thumbnail(url=self.bot.user.display_avatar.url)
     await ctx.send(embed=embed)
 
   @blacklist_check()
@@ -293,7 +292,7 @@ class Utility(commands.Cog):
                       inline=False)
     if member in ctx.guild.members:
       embed.set_footer(text=f"Requested by {ctx.author}",
-                       icon_url=ctx.author.avatar.url
+                       icon_url=ctx.author.display_avatar.url
                        if ctx.author.avatar else ctx.author.default_avatar.url)
     else:
       if member not in ctx.guild.members:
