@@ -154,9 +154,9 @@ class Check:
             color=0x2B2D31,
         )
         ray5.set_footer(
-            text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+            text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
         )
-        ray5.set_thumbnail(url=f"{ctx.author.avatar}")
+        ray5.set_thumbnail(url=ctx.author.display_avatar.url)
         ray5.timestamp = discord.utils.utcnow()
         await ctx.channel.send(embed=ray5)
         return False
@@ -174,9 +174,9 @@ class Check:
             color=0x2B2D31,
         )
         ray5.set_footer(
-            text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+            text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
         )
-        ray5.set_thumbnail(url=f"{ctx.author.avatar}")
+        ray5.set_thumbnail(url=ctx.author.display_avatar.url)
         ray5.timestamp = discord.utils.utcnow()
         await ctx.channel.send(embed=ray5)
         return False
@@ -194,9 +194,9 @@ class Check:
             color=0x2B2D31,
         )
         ray5.set_footer(
-            text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+            text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
         )
-        ray5.set_thumbnail(url=f"{ctx.author.avatar}")
+        ray5.set_thumbnail(url=ctx.author.display_avatar.url)
         ray5.timestamp = discord.utils.utcnow()
         await ctx.channel.send(embed=ray5)
         return False
@@ -216,9 +216,9 @@ class Check:
             color=0x2B2D31,
         )
         ray5.set_footer(
-            text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+            text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
         )
-        ray5.set_thumbnail(url=f"{ctx.author.avatar}")
+        ray5.set_thumbnail(url=ctx.author.display_avatar.url)
         ray5.timestamp = discord.utils.utcnow()
         await ctx.channel.send(embed=ray5)
         return False
@@ -235,9 +235,9 @@ class Check:
             color=0x2B2D31,
         )
         ray5.set_footer(
-            text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+            text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
         )
-        ray5.set_thumbnail(url=f"{ctx.author.avatar}")
+        ray5.set_thumbnail(url=ctx.author.display_avatar.url)
         ray5.timestamp = discord.utils.utcnow()
         await ctx.channel.send(embed=ray5)
         return False
@@ -692,7 +692,17 @@ class Music(commands.Cog):
     @commands.Cog.listener()
     async def on_wavelink_node_ready(self, node: wavelink.Node):
         print(f"Node <{node.identifier}> is now Ready!")
-        
+
+    async def cog_command_error(self, ctx, error):
+        if isinstance(error, commands.CommandInvokeError):
+            error = error.original
+        await ctx.send(
+            embed=discord.Embed(
+                description=f"<:cross:1348326385386651748> | Music error: `{error}`\nMake sure you are in a voice channel and Lavalink is online.",
+                color=0x2B2D31,
+            )
+        )
+
     @commands.command(name="lavalinkinfo", aliases=["llinfo", "llstats"])
     @blacklist_check()    
     @ignore_check()
@@ -731,6 +741,14 @@ class Music(commands.Cog):
     @ignore_check()
     async def play(self, ctx: commands.Context, *, search: str):
         await ctx.defer()
+        # Check Lavalink node is connected
+        if not wavelink.NodePool.nodes:
+            return await ctx.send(
+                embed=discord.Embed(
+                    description="<:cross:1348326385386651748> | Music is currently unavailable — Lavalink is not connected. Please try again later.",
+                    color=0x2B2D31,
+                )
+            )
         if not getattr(ctx.author, "voice", None):
             nv = discord.Embed(
                 description="<:cross:1348326385386651748> | You are not connected to a voice channel.",
@@ -778,11 +796,11 @@ class Music(commands.Cog):
                     name="<:clock:1348340487383158855> Duration",
                     value=f"`❯ { round(track.duration / 60, 2)}`",
                 )
-                mbed.set_author(name="NOW PLAYING", icon_url=f"{ctx.author.avatar}")
+                mbed.set_author(name="NOW PLAYING", icon_url=ctx.author.display_avatar.url)
 
                 mbed.set_thumbnail(url=self.bot.user.display_avatar.url)
                 mbed.set_footer(
-                    text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+                    text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
                 )
                 mbed.timestamp = discord.utils.utcnow()
 
@@ -801,7 +819,7 @@ class Music(commands.Cog):
                     color=0x2B2D31,
                 )
 
-                embed.set_author(name="ADDED TO QUEUE", icon_url=f"{ctx.author.avatar}")
+                embed.set_author(name="ADDED TO QUEUE", icon_url=ctx.author.display_avatar.url)
                 embed.set_thumbnail(url=track.thumb)
                 #     embed.timestamp = discord.utils.utcnow()
                 await ctx.send(embed=embed)
@@ -819,10 +837,10 @@ class Music(commands.Cog):
                 )
                 mbed.add_field(name="Song Url", value=search)
                 # mbed.add_field(name="<a:1045213196207804568> ", value=f"[{track1}](https://discord.gg/nakhre)")
-                mbed.set_author(name="NOW PLAYING", icon_url=f"{ctx.author.avatar}")
+                mbed.set_author(name="NOW PLAYING", icon_url=ctx.author.display_avatar.url)
                 mbed.set_image(url=track1.thumb)
                 mbed.set_footer(
-                    text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+                    text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
                 )
                 mbed.timestamp = discord.utils.utcnow()
                 view = discord.ui.View()
@@ -838,7 +856,7 @@ class Music(commands.Cog):
                     color=0x2B2D31,
                 )
 
-                embed.set_author(name="ADDED TO QUEUE", icon_url=f"{ctx.author.avatar}")
+                embed.set_author(name="ADDED TO QUEUE", icon_url=ctx.author.display_avatar.url)
                 embed.set_thumbnail(url=track1.thumb)
                 embed.timestamp = discord.utils.utcnow()
                 await ctx.reply(embed=embed)
@@ -870,9 +888,9 @@ class Music(commands.Cog):
                 )
                 mbed.set_image(url=track2.thumb)
 
-                mbed.set_author(name="NOW PLAYING", icon_url=f"{ctx.author.avatar}")
+                mbed.set_author(name="NOW PLAYING", icon_url=ctx.author.display_avatar.url)
                 mbed.set_footer(
-                    text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+                    text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
                 )
                 mbed.timestamp = discord.utils.utcnow()
 
@@ -893,7 +911,7 @@ class Music(commands.Cog):
                     color=0x2B2D31,
                 )
 
-                embed.set_author(name="ADDED TO QUEUE", icon_url=f"{ctx.author.avatar}")
+                embed.set_author(name="ADDED TO QUEUE", icon_url=ctx.author.display_avatar.url)
                 embed.set_thumbnail(url=track2.thumb)
                 embed.timestamp = discord.utils.utcnow()
                 await ctx.send(embed=embed)
@@ -1161,7 +1179,7 @@ class Music(commands.Cog):
                 color=0x2B2D31,
             )
             ray.set_footer(
-                text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+                text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
             )
             ray.set_thumbnail(url = f"{ctx.author.avatar}")
 
@@ -1243,7 +1261,7 @@ class Music(commands.Cog):
                 color=0x2B2D31,
             )
             ray.set_footer(
-                text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+                text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
             )
             # ray.set_thumbnail(url = f"{ctx.author.avatar}")
 
@@ -1324,7 +1342,7 @@ class Music(commands.Cog):
                 color=0x2B2D31,
             )
             ray.set_footer(
-                text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+                text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
             )
             ray.set_thumbnail(url = f"{ctx.author.avatar}")
 
@@ -1350,9 +1368,9 @@ class Music(commands.Cog):
                 color=0x2B2D31,
             )
             ray.set_footer(
-                text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+                text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
             )
-            ray.set_thumbnail(url=f"{ctx.author.avatar}")
+            ray.set_thumbnail(url=ctx.author.display_avatar.url)
 
             return await ctx.send(embed=ray)
         elif not getattr(ctx.author.voice, "channel", None):
@@ -1361,9 +1379,9 @@ class Music(commands.Cog):
                 color=0x2B2D31,
             )
             ray1.set_footer(
-                text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+                text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
             )
-            ray1.set_thumbnail(url=f"{ctx.author.avatar}")
+            ray1.set_thumbnail(url=ctx.author.display_avatar.url)
             ray1.timestamp = discord.utils.utcnow()
             return await ctx.send(embed=ray1)
         else:
@@ -1375,9 +1393,9 @@ class Music(commands.Cog):
                 color=0x2B2D31,
             )
             ray1.set_footer(
-                text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+                text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
             )
-            ray1.set_thumbnail(url=f"{ctx.author.avatar}")
+            ray1.set_thumbnail(url=ctx.author.display_avatar.url)
             ray1.timestamp = discord.utils.utcnow()
             return await ctx.send(embed=ray1)
 
@@ -1394,10 +1412,10 @@ class Music(commands.Cog):
             value=f"`❯ {datetime.timedelta(seconds=vc.track.length)}`",
         )
         em.set_footer(
-            text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+            text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
         )
-        em.set_author(name="NOW PLAYING", icon_url=f"{ctx.author.avatar}")
-        em.set_thumbnail(url=f"{ctx.author.avatar}")
+        em.set_author(name="NOW PLAYING", icon_url=ctx.author.display_avatar.url)
+        em.set_thumbnail(url=ctx.author.display_avatar.url)
         em.timestamp = discord.utils.utcnow()
         return await ctx.send(embed=em)
 
@@ -1491,16 +1509,16 @@ class Music(commands.Cog):
                 color=0x2B2D31,
             )
             ray3.set_footer(
-                text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+                text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
             )
             ray3.set_thumbnail(url = f"{ctx.author.avatar}")
             ray3.timestamp = discord.utils.utcnow()
             return await ctx.send(embed=ray3)
         ray4 = discord.Embed(title="Music | Queue", color=0x2B2D31)
         ray4.set_footer(
-            text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+            text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
         )
-        ray4.set_thumbnail(url=f"{ctx.author.avatar}")
+        ray4.set_thumbnail(url=ctx.author.display_avatar.url)
 
         copy = vc.queue.copy()
         count = 0
@@ -1539,7 +1557,7 @@ class Music(commands.Cog):
             color=0x2B2D31,
         )
         ray3.set_footer(
-            text=f"Requested By {ctx.author}", icon_url=f"{ctx.author.avatar}"
+            text=f"Requested By {ctx.author}", icon_url=ctx.author.display_avatar.url
         )
         return await ctx.send(embed=ray3)
 
