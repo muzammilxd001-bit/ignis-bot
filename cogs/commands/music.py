@@ -663,7 +663,8 @@ class Music(commands.Cog):
     async def create_nodes(self):
         await self.bot.wait_until_ready()
         lavalink_uri = os.environ.get("LAVALINK_URI", "")
-        lavalink_password = os.environ.get("LAVALINK_SERVER_PASSWORD", os.environ.get("LAVALINK_PASSWORD", "youshallnotpass"))
+        lavalink_password = os.environ.get("LAVALINK_PASSWORD", os.environ.get("LAVALINK_SERVER_PASSWORD", "youshallnotpass"))
+        print(f"[Music] Connecting to Lavalink at {lavalink_uri} ...")
         if not lavalink_uri:
             print("[Music] LAVALINK_URI env var not set — music/Lavalink disabled. Set LAVALINK_URI to enable.")
             return
