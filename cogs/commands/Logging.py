@@ -119,7 +119,7 @@ class Logging(commands.Cog):
           embed.add_field(name="Channel Logs", value=f"<#{data['channel']}>",inline=False)
         embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url)
         embed.timestamp = discord.utils.utcnow()
-        embed.set_thumbnail(url=self.bot.user.avatar.url)
+        embed.set_thumbnail(url=self.bot.user.display_avatar.url)
         await ctx.send(embed=embed)
 
           
