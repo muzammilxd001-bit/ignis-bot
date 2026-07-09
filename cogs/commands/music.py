@@ -692,7 +692,7 @@ class Music(commands.Cog):
 
     @commands.Cog.listener()
     async def on_wavelink_node_ready(self, node: wavelink.Node):
-        print(f"Node <{node.identifier}> is now Ready!")
+        print(f"Node <{node.id}> is now Ready!")
 
     async def cog_command_error(self, ctx, error):
         if isinstance(error, commands.CommandInvokeError):
