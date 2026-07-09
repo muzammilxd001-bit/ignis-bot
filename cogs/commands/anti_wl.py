@@ -86,7 +86,7 @@ class Whitelist(commands.Cog):
                     f"To enable use `{prefix}antinuke enable` **"
                 )
             )
-            embed.set_thumbnail(url=ctx.bot.user.avatar.url)
+            embed.set_thumbnail(url=ctx.bot.user.display_avatar.url)
             return await ctx.send(embed=embed)
 
         if not member:
@@ -96,7 +96,7 @@ class Whitelist(commands.Cog):
                 description="**Adding a user to the whitelist means that no actions will be taken against them if they trigger the Anti-Nuke Module.**"
             )
             embed.add_field(name="__**Usage**__", value=f"<a:black_dot:1348871328320458784> `{prefix}whitelist @user/id`\n<a:black_dot:1348871328320458784> `{prefix}wl @user`")
-            embed.set_thumbnail(url=ctx.bot.user.avatar.url)
+            embed.set_thumbnail(url=ctx.bot.user.display_avatar.url)
             return await ctx.send(embed=embed)
 
         async with self.db.execute(
@@ -165,7 +165,7 @@ class Whitelist(commands.Cog):
         )
         embed.add_field(name="**Executor**", value=f"<@!{ctx.author.id}>", inline=True)
         embed.add_field(name="**Target**", value=f"<@!{member.id}>", inline=True)
-        embed.set_thumbnail(url=self.bot.user.avatar.url)
+        embed.set_thumbnail(url=self.bot.user.display_avatar.url)
         embed.set_footer(text=f"Developed by Nexium Development™")
 
         msg = await ctx.send(embed=embed, view=view)
@@ -207,7 +207,7 @@ class Whitelist(commands.Cog):
                 )
                 embed.add_field(name="**Executor**", value=f"<@!{ctx.author.id}>", inline=True)
                 embed.add_field(name="**Target**", value=f"<@!{member.id}>", inline=True)
-                embed.set_thumbnail(url=self.bot.user.avatar.url)
+                embed.set_thumbnail(url=self.bot.user.display_avatar.url)
                 embed.set_footer(text=f"Developed by Nexium Development™")
 
                 await interaction.response.edit_message(embed=embed, view=None)
@@ -251,7 +251,7 @@ class Whitelist(commands.Cog):
                 )
                 embed.add_field(name="**Executor**", value=f"<@!{ctx.author.id}>", inline=True)
                 embed.add_field(name="**Target**", value=f"<@!{member.id}>", inline=True)
-                embed.set_thumbnail(url=self.bot.user.avatar.url)
+                embed.set_thumbnail(url=self.bot.user.display_avatar.url)
                 embed.set_footer(text=f"Developed by Nexium Development™")
 
                 await interaction.response.edit_message(embed=embed, view=None)
