@@ -853,7 +853,7 @@ class Music(commands.Cog):
                 track1 = await vc.node.get_tracks(query=search, cls=wavelink.Track)
                 await vc.queue.put_wait(track1[0])
                 embed = discord.Embed(
-                    description=f"[{track1}](https://discord.gg/nakhre) Added To The Queue | ",
+                    description=f"[{track1}](https://discord.gg/hangouts) Added To The Queue | ",
                     color=0x2B2D31,
                 )
 
@@ -875,7 +875,7 @@ class Music(commands.Cog):
 
                 mbed = discord.Embed(
                     color=0x2B2D31,
-                    description=f"[{track2.title}](https://discord.gg/nakhre)",
+                    description=f"[{track2.title}](https://discord.gg/hangouts)",
                 )
                 # mbed.add_field(name="<a:jk_playing:1045213196207804568> ", value=f"[{track2.title}](https://discord.gg/nakhre)")
                 # mbed.add_field(name="<:jk_users:1045213273273929738> Requested By", value=f"{ctx.author.mention}")
@@ -908,7 +908,7 @@ class Music(commands.Cog):
                 )
                 await vc.queue.put_wait(track2)
                 embed = discord.Embed(
-                    description=f"[{track2}](https://discord.gg/nakhre) Added To The Queue",
+                    description=f"[{track2}](https://discord.gg/hangouts) Added To The Queue",
                     color=0x2B2D31,
                 )
 
