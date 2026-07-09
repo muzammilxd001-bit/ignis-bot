@@ -161,7 +161,7 @@ class Automod(commands.Cog):
             
         if await self.is_automod_enabled(guild_id):
             embed=discord.Embed(title=f"Automod Settings for {ctx.guild.name}", description=f"**<:alert:1348340453803687966> Your Server already has Automoderation Enabled.**\n\nCurrent Status: <:enabled:1204107832232775730> Enabled\nTo Disable use `{ctx.prefix}automod disable`", color=0x000000)
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
             embed.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                    icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
             await ctx.send(embed=embed)
@@ -178,7 +178,7 @@ class Automod(commands.Cog):
         ]
 
         embed = discord.Embed(title=f"{ctx.guild.name}'s Automod Setup", color=0x000000)
-        embed.set_thumbnail(url=self.bot.user.avatar.url)
+        embed.set_thumbnail(url=self.bot.user.display_avatar.url)
         embed.description = "\n".join([f"<:cross:1348326385386651748> : {event}" for event in events])
 
         select_menu = discord.ui.Select(placeholder="Select events to enable", min_values=1, max_values=len(events), options=[
@@ -327,7 +327,7 @@ class Automod(commands.Cog):
             
         if not await self.is_automod_enabled(guild_id):
             embed=discord.Embed(title=f"Automod Settings for {ctx.guild.name}", description=f"Uhh, looks like your server hasn't enabled Automoderation.\n\nCurrent Status: <a:disabled:1349283526465421325> Disabled\nTo Enable use `{ctx.prefix}automod enable`", color=0x000000)
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
             embed.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                    icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
             await ctx.send(embed=embed)
@@ -339,8 +339,8 @@ class Automod(commands.Cog):
         for event, punishment in current_punishments:
             punishment_map[event] = punishment or "None"
             embed.add_field(name=event, value=punishment or "None", inline=False)
-            embed.set_footer(text="Keep the default punishment (Mute) to prevent server raids without kicking or banning raiders", icon_url=self.bot.user.avatar.url)
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_footer(text="Keep the default punishment (Mute) to prevent server raids without kicking or banning raiders", icon_url=self.bot.user.display_avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
 
         events = [event for event, _ in current_punishments]
         select = discord.ui.Select(placeholder="Select events to update punishment", options=[
@@ -372,8 +372,8 @@ class Automod(commands.Cog):
                     updated_embed = discord.Embed(title=f"Updated Automod Punishments for {ctx.guild.name}", color=0x000000)
                     for event, punishment in updated_punishments:
                         updated_embed.add_field(name=event, value=punishment or "None", inline=False)
-                        updated_embed.set_footer(text="You can modify the punishments by running the command again.", icon_url=self.bot.user.avatar.url)
-                        updated_embed.set_thumbnail(url=self.bot.user.avatar.url)
+                        updated_embed.set_footer(text="You can modify the punishments by running the command again.", icon_url=self.bot.user.display_avatar.url)
+                        updated_embed.set_thumbnail(url=self.bot.user.display_avatar.url)
 
                     
                     await button_interaction.response.edit_message(embed=updated_embed, view=None)
@@ -413,7 +413,7 @@ class Automod(commands.Cog):
         guild_id = ctx.guild.id
         if ctx.author != ctx.guild.owner and ctx.author.top_role.position < ctx.guild.me.top_role.position:
             embed = discord.Embed(title="<:alert:1348340453803687966> Access Denied", description="Your top role must be at the **same** position or **higher** than my top role.", color=0x000000)
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
             embed.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                        icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
             await ctx.send(embed=embed)
@@ -421,7 +421,7 @@ class Automod(commands.Cog):
 
         if not await self.is_automod_enabled(guild_id):
             embed=discord.Embed(title=f"Automod Settings for {ctx.guild.name}", description=f"Uhh, looks like your server hasn't enabled Automoderation.\n\nCurrent Status: <a:disabled:1349283526465421325> Disabled\nTo Enable use `{ctx.prefix}automod enable`", color=0x000000)
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
             embed.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                    icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
             await ctx.send(embed=embed)
@@ -464,7 +464,7 @@ class Automod(commands.Cog):
 
                     
             success = discord.Embed(title="<:tick:1348326381611647046> Channel Whitelisted", description=f"The channel {channel.mention} has been added to the ignore list \n\n➜ Use `{ctx.prefix}automod ignore show` to view the ignore list.", color=0x000000)
-            success.set_thumbnail(url=self.bot.user.avatar.url)
+            success.set_thumbnail(url=self.bot.user.display_avatar.url)
             success.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                    icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
 
@@ -488,7 +488,7 @@ class Automod(commands.Cog):
 
         if not await self.is_automod_enabled(guild_id):
             embed=discord.Embed(title=f"Automod Settings for {ctx.guild.name}", description=f"Uhh, looks like your server hasn't enabled Automoderation.\n\nCurrent Status: <a:disabled:1349283526465421325> Disabled\nTo Enable use `{ctx.prefix}automod enable`", color=0x000000)
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
             embed.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                    icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
             await ctx.send(embed=embed)
@@ -532,7 +532,7 @@ class Automod(commands.Cog):
                     
                     
             success = discord.Embed(title="<:tick:1348326381611647046> Role Whitelisted", description=f"The role {role.mention} has been added to the ignore list \n\n➜ Use `{ctx.prefix}automod ignore show` to view the ignore list.", color=0x000000)
-            success.set_thumbnail(url=self.bot.user.avatar.url)
+            success.set_thumbnail(url=self.bot.user.display_avatar.url)
             success.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                    icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
 
@@ -556,7 +556,7 @@ class Automod(commands.Cog):
 
         if not await self.is_automod_enabled(guild_id):
             embed=discord.Embed(title=f"Automod Settings for {ctx.guild.name}", description=f"Uhh, looks like your server hasn't enabled Automoderation.\n\nCurrent Status: <a:disabled:1349283526465421325> Disabled\nTo Enable use `{ctx.prefix}automod enable`", color=0x000000)
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
             embed.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                    icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
             await ctx.send(embed=embed)
@@ -621,7 +621,7 @@ class Automod(commands.Cog):
 
         if not await self.is_automod_enabled(guild_id):
             embed=discord.Embed(title=f"Automod Settings for {ctx.guild.name}", description=f"Uhh, looks like your server hasn't enabled Automoderation.\n\nCurrent Status: <a:disabled:1349283526465421325> Disabled\nTo Enable use `{ctx.prefix}automod enable`", color=0x000000)
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
             embed.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                    icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
             await ctx.send(embed=embed)
@@ -631,7 +631,7 @@ class Automod(commands.Cog):
             await db.execute("DELETE FROM automod_ignored WHERE guild_id = ?", (guild_id,))
             await db.commit()
         embed=discord.Embed(title=f"Automod Settings for {ctx.guild.name}", description=f"** <:tick:1348326381611647046> | All ignored channels and roles have been reset!**\n\nTo view current Automod settings use `{ctx.prefix}automod config`", color=0x000000)
-        embed.set_thumbnail(url=self.bot.user.avatar.url)
+        embed.set_thumbnail(url=self.bot.user.display_avatar.url)
         embed.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
         await ctx.send(embed=embed)
@@ -664,7 +664,7 @@ class Automod(commands.Cog):
 
         if not await self.is_automod_enabled(guild_id):
             embed=discord.Embed(title=f"Automod Settings for {ctx.guild.name}", description=f"Uhh, looks like your server hasn't enabled Automoderation.\n\nCurrent Status: <a:disabled:1349283526465421325> Disabled\nTo Enable use `{ctx.prefix}automod enable`", color=0x000000)
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
             embed.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                    icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
             await ctx.send(embed=embed)
@@ -719,7 +719,7 @@ class Automod(commands.Cog):
 
         if not await self.is_automod_enabled(guild_id):
             embed=discord.Embed(title=f"Automod Settings for {ctx.guild.name}", description=f"Uhh, looks like your server hasn't enabled Automoderation.\n\nCurrent Status: <a:disabled:1349283526465421325> Disabled\nTo Enable use `{ctx.prefix}automod enable`", color=0x000000)
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
             embed.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                    icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
             await ctx.send(embed=embed)
@@ -775,7 +775,7 @@ class Automod(commands.Cog):
             
         if not await self.is_automod_enabled(guild_id):
             embed=discord.Embed(title=f"Automod Settings for {ctx.guild.name}", description=f"Uhh, looks like your server hasn't enabled Automoderation.\n\nCurrent Status: <a:disabled:1349283526465421325> Disabled\nTo Enable use `{ctx.prefix}automod enable`", color=0x000000)
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
             embed.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                    icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
             await ctx.send(embed=embed)
@@ -787,7 +787,7 @@ class Automod(commands.Cog):
             color=0x0000000
         )
         embed.set_footer(text="Click 'Yes' to disable Automod or 'No' to cancel.")
-        embed.set_thumbnail(url=self.bot.user.avatar.url)
+        embed.set_thumbnail(url=self.bot.user.display_avatar.url)
 
         view = ConfirmDisable(ctx.author)
         message = await ctx.send(embed=embed, view=view)
@@ -824,7 +824,7 @@ class Automod(commands.Cog):
             embed.title = "<:tick:1348326381611647046> Automod Disabled"
             embed.description = f"Automod has been successfully disabled for **{ctx.guild.name}.** \nAll settings, punishments, and logs have been removed.\n\nCurrent Status:<a:disabled:1349283526465421325> Disabled\n➜ To Re-enable use `{ctx.prefix}automod enable`."
             embed.color = 0x000000
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
             embed.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                        icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
             await message.edit(embed=embed, view=None)
@@ -858,7 +858,7 @@ class Automod(commands.Cog):
             
         if not await self.is_automod_enabled(guild_id):
             embed=discord.Embed(title=f"Automod Settings for {ctx.guild.name}", description=f"Uhh, looks like your server hasn't enabled Automoderation.\n\nCurrent Status: <a:disabled:1349283526465421325> Disabled\nTo Enable use `{ctx.prefix}automod enable`", color=0x000000)
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
             embed.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                    icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
             await ctx.send(embed=embed)
@@ -866,12 +866,12 @@ class Automod(commands.Cog):
 
         current_punishments = await self.get_current_punishments(guild_id)
         embed = discord.Embed(title=f"Enabled Automod Events & their punishment type for {ctx.guild.name}", color=0x000000)
-        embed.set_footer(text="Manage punishment type for events by executing “automod punishment” command.", icon_url=self.bot.user.avatar.url)
+        embed.set_footer(text="Manage punishment type for events by executing “automod punishment” command.", icon_url=self.bot.user.display_avatar.url)
 
         if ctx.guild.icon:
-            embed.set_thumbnail(url=ctx.guild.icon.url)
+            embed.set_thumbnail(url=ctx.guild.icon.url if ctx.guild.icon else None)
         else:
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
 
         for event, punishment in current_punishments:
             embed.add_field(name=event, value=punishment or "None", inline=False)
@@ -912,7 +912,7 @@ class Automod(commands.Cog):
             return
         if not await self.is_automod_enabled(guild_id):
             embed=discord.Embed(title=f"Automod Settings for {ctx.guild.name}", description=f"Uhh, looks like your server hasn't enabled Automoderation.\n\nCurrent Status: <a:disabled:1349283526465421325> Disabled\nTo Enable use `{ctx.prefix}automod enable`", color=0x000000)
-            embed.set_thumbnail(url=self.bot.user.avatar.url)
+            embed.set_thumbnail(url=self.bot.user.display_avatar.url)
             embed.set_footer(text=f"“{ctx.command.qualified_name}” Command executed by {ctx.author}",
                    icon_url=ctx.author.avatar.url if ctx.author.avatar else ctx.author.default_avatar.url)
             await ctx.send(embed=embed)
