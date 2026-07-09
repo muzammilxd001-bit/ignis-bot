@@ -468,7 +468,7 @@ class boost(commands.Cog):
                 em.set_thumbnail(url=emthumbnail)
             if user.guild.icon is not None:
                 em.set_footer(text=user.guild.name,
-                              icon_url=user.guild.icon.url)
+                              icon_url=user.guild.icon.url if user.guild.icon else None)
 
             for chann in chan:
                 channn = self.bot.get_channel(int(chann))
@@ -523,8 +523,8 @@ class boost(commands.Cog):
             embed.add_field(name="**BoostMessage Ping:**", value=f"{ping}")
             if ctx.guild.icon is not None:
                 embed.set_footer(text=ctx.guild.name,
-                                 icon_url=ctx.guild.icon.url)
-                embed.set_thumbnail(url=ctx.guild.icon.url)
+                                 icon_url=ctx.guild.icon.url if ctx.guild.icon else None)
+                embed.set_thumbnail(url=ctx.guild.icon.url if ctx.guild.icon else None)
 
         await ctx.send(embed=embed)
 
